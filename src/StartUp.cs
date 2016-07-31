@@ -26,7 +26,7 @@ namespace HexityStartUp
     {
         
         private bool responding;
-        private List<ObjectPool> objectPool;
+        private ObjectPool objectPool;
 
         public bool Initialize() 
         {
