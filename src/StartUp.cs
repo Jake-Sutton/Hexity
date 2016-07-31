@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Hexity.Strings;
 using Hexity.Engines;
 
@@ -24,13 +25,18 @@ namespace HexityStartUp
 
     class Core 
     {
-        
+        private string currentPool = "default";
+        private Dictionary<string, ObjectPool> state;
+
         private bool responding;
-        private ObjectPool objectPool;
 
         public bool Initialize() 
         {
-            objectPool = new ObjectPool();
+            state = new Dictionary<string, ObjectPool>();
+
+            ObjectPool objectPool = new ObjectPool();
+            state.Add("default", objectPool);
+
             responding = true;
 
             return responding;
@@ -51,11 +57,13 @@ namespace HexityStartUp
                 {
                     case "create":
                         
+                        // check to see if the usr wants another pool
+
                         string engine = input[1];
                         
                         for (int i = 2; i < input.Length; ++i) {
                             ObjectEngine eng = new ObjectEngine( input[i] );    
-                            objectPool.AddObject( eng );
+                            state[currentPool].AddObject( eng );
                         } 
                         
                         // write the object pool to the disk
@@ -63,9 +71,10 @@ namespace HexityStartUp
 
                     case "list":
 
-                        foreach (var item in objectPool.GetObjects())
+                        Console.WriteLine(currentPool);
+                        foreach (var item in state[currentPool].GetObjects())
                         {
-                            Console.WriteLine(item.GetHex().Name);
+                            Console.WriteLine("* " + item.GetHex().Name);
                         }
 
                         break;
