@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Hexity.Models;
 
@@ -48,7 +49,10 @@ namespace Hexity.Engines
             return engines;
         }
 
-
+        public bool Contains(string objectName)
+        {
+            return engines.Any(obj => obj.GetHex().Name==objectName);
+        }
 
         // load pool from a file
 
