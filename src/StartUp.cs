@@ -101,7 +101,6 @@ namespace HexityStartUp
                         }
                         else if (input[1].Equals("pool"))
                         {
-                            Console.WriteLine("|" + input[2] + "|");
                             state.Remove( input[2] );
                         }
                         
