@@ -49,5 +49,10 @@ namespace Hexity.Engines
         {
             return engines.Any( obj => obj.Hex.Name==objectName );
         }
+
+        public int Count()
+        {
+            return engines.Count;
+        }
     }
 }

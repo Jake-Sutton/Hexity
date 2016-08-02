@@ -57,76 +57,84 @@ namespace HexityStartUp
                 {
                     case "create":
                         
-                        // check to see if the usr wants another pool
+                        for (int i = 1; i < input.Length; ++i) {
+                            ObjectPool objectPool = new ObjectPool();
+                            state.Add( input[i], objectPool );
 
-                        string engine = input[1];
+                            currentPool = input[i];
+                        }
                         
-                        // ideally with refactoring this could be easier
-                        if (engine.Equals("object")) 
-                        {
-                            for (int i = 2; i < input.Length; ++i) {
-                                ObjectEngine eng = new ObjectEngine( input[i] );    
-                                state[currentPool].AddObject( eng );
-                            } 
-                        }
-                        else if (engine.Equals("pool"))
-                        {
-                                ObjectPool objectPool = new ObjectPool();
-                                state.Add( input[2], objectPool );
+                        // write the object pool to the disk
+                        break;
 
-                                currentPool = input[2];
-                        }
+                    case "delete":
+                        
+                        if (state[input[1]].Count() > 0) 
+                            {
+                                Console.WriteLine(input[1] + " contains objects. Are you sure?");
+
+                                string conf = Console.ReadLine();
+                                if ( conf == "y" ) {
+                                    state.Remove( input[1] );
+                                }
+                            }
+                            else 
+                            {
+                                state.Remove( input[1] );
+                            }
+                        
+                        // write the object pool to the disk
+                        break;
+
+                    case "add":
+                        
+                        for (int i = 1; i < input.Length; ++i) {
+                            ObjectEngine eng = new ObjectEngine( input[i] );    
+                            state[currentPool].AddObject( eng );
+                        } 
                         
                         // write the object pool to the disk
                         break;
 
                     case "remove":
 
-                        // adequet simplicity
-                        if (input[1].Equals("object")) 
+                        List<ObjectEngine> engTemp = new List<ObjectEngine>() {};
+                        foreach (var item in state[currentPool].GetObjects())
                         {
-                            List<ObjectEngine> eng = new List<ObjectEngine>() {};
-                            foreach (var item in state[currentPool].GetObjects())
+                            if (item.Hex.Name == input[1]) 
                             {
-                                if (item.Hex.Name == input[2]) 
-                                {
-                                    eng.Add( item );
-                                }
-                            } 
-
-                            foreach(var del in eng) 
-                            {          
-                                state[currentPool].RemoveObject( del );
+                                engTemp.Add( item );
                             }
+                        } 
+
+                        foreach(var del in engTemp) 
+                        {          
+                            state[currentPool].RemoveObject( del );
                         }
-                        else if (input[1].Equals("pool"))
-                        {
-                            state.Remove( input[2] );
-                        }
-                        
+                    
                         // write the object pool to the disk
                         break;
 
+                    case "ls":
                     case "list":
 
-                        if (input[1].Equals("object")) 
+                        Console.WriteLine(currentPool);
+                        foreach (var item in state[currentPool].GetObjects())
                         {
-                            Console.WriteLine(currentPool);
-                            foreach (var item in state[currentPool].GetObjects())
-                            {
-                                Console.WriteLine("* " + item.Hex.Name);
-                            } 
-                        }
-                        else if (input[1].Equals("pool"))
-                        {
-                            Console.WriteLine("* " + currentPool);
-                            foreach (var item in state.Keys) 
-                            {
-                                if (!item.Equals(currentPool))
-                                    Console.WriteLine(item);
-                            }
-                        }
+                            Console.WriteLine("* " + item.Hex.Name);
+                        }                 
 
+                        break;
+
+                    case "pools":
+
+                        Console.WriteLine("* " + currentPool);
+                        foreach (var item in state.Keys) 
+                        {
+                            if (!item.Equals(currentPool))
+                                Console.WriteLine(item);
+                        }
+                        
                         break;
                     
                     case "open":
@@ -154,14 +162,10 @@ namespace HexityStartUp
 
                         break;
 
-
-                    case "q":
-                    case "quit": 
-                    case "done":
-                    case "exit":                     
+                    case "q":                    
                         Console.WriteLine("Thank you for using Hexity. Goodbye.");
                         responding = false;
-                        return 0;
+                        break;
 
                     default:
                         Console.WriteLine("Unknown command.");
