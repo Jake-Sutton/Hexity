@@ -7,26 +7,17 @@ namespace Hexity.Engines
 {
     public class ObjectEngine 
     {
-        // unity IOC dependency injection occurrs...
-
-        private Hex hex;
+        public Hex Hex { get; set; }
 
         public ObjectEngine() 
         {
-
+            this.Hex = new Hex();
         }
 
         public ObjectEngine(string objectName) 
         {
-            Hex newObject = new Hex();
-            newObject.Name = objectName;
-
-            this.hex = newObject;
-        }
-
-        public Hex GetHex() 
-        {
-            return this.hex;
+            this.Hex = new Hex();
+            this.Hex.Name = objectName;
         }
     }
 
@@ -41,24 +32,22 @@ namespace Hexity.Engines
 
         public void AddObject( ObjectEngine eng ) 
         {
-            engines.Add( eng );        
+            this.engines.Add( eng );        
+        }
+
+        public void RemoveObject( ObjectEngine eng ) 
+        {
+            this.engines.Remove( eng );        
         }
 
         public List<ObjectEngine> GetObjects() 
         {
             return engines;
         }
-
+        
         public bool Contains(string objectName)
         {
-            return engines.Any(obj => obj.GetHex().Name==objectName);
+            return engines.Any( obj => obj.Hex.Name==objectName );
         }
-
-        // load pool from a file
-
-        // remove object
-
-        // find objects by name etc.
-
     }
 }

@@ -61,6 +61,7 @@ namespace HexityStartUp
 
                         string engine = input[1];
                         
+                        // ideally with refactoring this could be easier
                         if (engine.Equals("object")) 
                         {
                             for (int i = 2; i < input.Length; ++i) {
@@ -79,6 +80,34 @@ namespace HexityStartUp
                         // write the object pool to the disk
                         break;
 
+                    case "remove":
+
+                        // adequet simplicity
+                        if (input[1].Equals("object")) 
+                        {
+                            List<ObjectEngine> eng = new List<ObjectEngine>() {};
+                            foreach (var item in state[currentPool].GetObjects())
+                            {
+                                if (item.Hex.Name == input[2]) 
+                                {
+                                    eng.Add( item );
+                                }
+                            } 
+
+                            foreach(var del in eng) 
+                            {          
+                                state[currentPool].RemoveObject( del );
+                            }
+                        }
+                        else if (input[1].Equals("pool"))
+                        {
+                            Console.WriteLine("|" + input[2] + "|");
+                            state.Remove( input[2] );
+                        }
+                        
+                        // write the object pool to the disk
+                        break;
+
                     case "list":
 
                         if (input[1].Equals("object")) 
@@ -86,7 +115,7 @@ namespace HexityStartUp
                             Console.WriteLine(currentPool);
                             foreach (var item in state[currentPool].GetObjects())
                             {
-                                Console.WriteLine("* " + item.GetHex().Name);
+                                Console.WriteLine("* " + item.Hex.Name);
                             } 
                         }
                         else if (input[1].Equals("pool"))
@@ -98,8 +127,6 @@ namespace HexityStartUp
                                     Console.WriteLine(item);
                             }
                         }
-
-
 
                         break;
                     
@@ -119,9 +146,9 @@ namespace HexityStartUp
                         {
                             foreach( var item in state[first].GetObjects() ) 
                             {
-                                if ( state[second].Contains(item.GetHex().Name)) 
+                                if ( state[second].Contains(item.Hex.Name)) 
                                 {
-                                    Console.WriteLine( item.GetHex().Name );
+                                    Console.WriteLine( item.Hex.Name );
                                 }
                             }
                         }
