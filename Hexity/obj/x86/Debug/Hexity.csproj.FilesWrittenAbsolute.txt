@@ -3,3 +3,4 @@
 /Users/jakesutton/Desktop/Hexity/Hexity/bin/Debug/Hexity.exe
 /Users/jakesutton/Desktop/Hexity/Hexity/obj/x86/Debug/Hexity.exe
 /Users/jakesutton/Desktop/Hexity/Hexity/obj/x86/Debug/Hexity.exe.mdb
+/Users/jakesutton/Desktop/Hexity/Hexity/bin/Debug/FileHelpers.dll

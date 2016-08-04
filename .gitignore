@@ -1,4 +1,6 @@
 bin/
+Core/obj/
+packages/
 *.exe
 *.dll
 .DS_Store
