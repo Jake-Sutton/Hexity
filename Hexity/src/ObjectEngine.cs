@@ -8,38 +8,57 @@ namespace Hexity.Engines
     public class ObjectEngine 
     {
         public Hex Hex { get; set; }
+		HashSet<string> Properties;
+		Dictionary<string, object> Values;
 
-        public ObjectEngine() 
+
+		public ObjectEngine() 
         {
             this.Hex = new Hex();
+			this.Properties = new HashSet<string>();
         }
 
         public ObjectEngine(string objectName) 
         {
             this.Hex = new Hex();
             this.Hex.Name = objectName;
+			this.Properties = new HashSet<string>();
         }
+
+		public ObjectEngine(string objectName, string[] properties)
+		{
+			this.Hex = new Hex();
+			this.Hex.Name = objectName;
+			this.Properties = new HashSet<string>();
+			this.Values = new Dictionary<string, object>();
+
+			foreach (var prop in properties)
+			{
+				this.Properties.Add(prop);
+				this.Values.Add(prop, null);
+			}
+		}
     }
 
     public class ObjectPool 
     {
 		List<ObjectEngine> Objects;
-		HashSet<string> ObjectProperties;
+		HashSet<string> MemberProperties;
 		//Dictionary<string, object> Columns;
 
         public ObjectPool() 
         {
-			this.ObjectProperties = new HashSet<string>();
+			this.MemberProperties = new HashSet<string>();
             this.Objects = new List<ObjectEngine>();
         }
 
 		public ObjectPool(string[] properties)
 		{
-			this.ObjectProperties = new HashSet<string>();
+			this.MemberProperties = new HashSet<string>();
 			this.Objects = new List<ObjectEngine>();
 
 			foreach (var prop in properties) {
-				this.ObjectProperties.Add( prop );
+				this.MemberProperties.Add( prop );
 			}
 		}
 

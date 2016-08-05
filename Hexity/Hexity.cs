@@ -4,6 +4,8 @@ using Hexity.Strings;
 using Hexity.Engines;
 using System.Globalization;
 using HexCommands;
+using System.Reflection;
+using System.Linq;
 
 namespace HexityStartUp 
 {
@@ -36,13 +38,21 @@ namespace HexityStartUp
             var objectPool = new ObjectPool();
 			Manager.State.Add(AppData.DefaultPoolName, objectPool);
 
+			string @namespace = AppData.CommandNamespace; 
+
+			var q =
+				from 	t in Assembly.GetExecutingAssembly().GetTypes()
+				where 	t.IsClass && t.Namespace == @namespace && !t.Name.StartsWith("<", StringComparison.Ordinal)
+				select	t;
+			
+			q.ToList().ForEach(m => Manager.HexCommands.Add( m.Name ));
+
             return Manager.Responding;
         }
 
         public int Start() 
         {
-
-            while (Manager.Responding) 
+            while ( Manager.Responding ) 
             {
                 Console.Write( AppData.Prompt );
 
@@ -53,29 +63,28 @@ namespace HexityStartUp
 				RunAction(action, input);
             }
 
-            // success error code
             return 0;
         }
 
-		private static void RunAction(string action, string[] arguments) {
-
+		static void RunAction(string action, string[] arguments)
+		{
 			// Creates a TextInfo based on the "en-US" culture.
 			TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
 
 			action = textInfo.ToTitleCase(action);
 
-
-			try
+			if (Manager.HexCommands.Contains(action))
 			{
-				Type type = Type.GetType("HexCommands." + action, true);
+				Type type = Type.GetType( AppData.CommandNamespace + "." + action, true );
 				var newInstance = (HexCommands.IRunnable)Activator.CreateInstance(type);
 
 				newInstance.Run(arguments);
 			}
-			catch
+			else 
 			{
-				Console.WriteLine("Unknown Command");
+				Console.WriteLine( AppData.ErrInvalidCommand, action, "TODO" );
 			}
+
 		}
     }
 }

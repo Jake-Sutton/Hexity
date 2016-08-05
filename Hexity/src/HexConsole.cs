@@ -15,6 +15,7 @@ namespace HexCommands
 
 	public static class Manager 
 	{
+		public static HashSet<string> HexCommands = new HashSet<string>();
 		public static bool Responding;
 		public static string CurrentPool;
 		public static Dictionary<string, ObjectPool> State;
@@ -123,13 +124,50 @@ namespace HexCommands
 
 		public bool Run(string[] parameters)
 		{
-			for (int i = 1; i < parameters.Length; ++i)
+			if (parameters.Length > 2)
 			{
-				var eng = new ObjectEngine(parameters[i]);
-				Manager.State[Manager.CurrentPool].AddObject(eng);
+
+				int parameterStart = -1;
+				int parameterEnd = -1;
+				for (int i = 0; i < parameters.Length; ++i)
+				{
+					if (parameters[i].Contains("{"))
+					{
+						parameterStart = i;
+						break;
+					}
+				}
+
+				for (int i = parameterStart - 1; i < parameters.Length; ++i)
+				{
+					if (parameters[i].Contains("}"))
+					{
+						parameterEnd = i;
+						break;
+					}
+				}
+
+				string[] data = parameters.Skip(parameterStart).Take(parameterEnd - (parameterStart - 1)).ToArray();
+
+				string final = string.Join("", data);
+
+				final = final.TrimStart('{').TrimEnd('}');
+
+				TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+
+				data = final.Split(',').Select(n => textInfo.ToTitleCase(n)).ToArray();
+
+				CreateWithProperties(parameters[1], data);
 			}
 
 			return true;
+		}
+
+
+		void CreateWithProperties(string name, string[] properties)
+		{
+			var eng = new ObjectEngine(name, properties);
+			Manager.State[Manager.CurrentPool].AddObject(eng);
 		}
 	}
 
