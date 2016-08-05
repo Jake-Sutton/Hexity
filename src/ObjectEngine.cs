@@ -23,36 +23,49 @@ namespace Hexity.Engines
 
     public class ObjectPool 
     {
-        private List<ObjectEngine> engines;
+		List<ObjectEngine> Objects;
+		HashSet<string> ObjectProperties;
+		//Dictionary<string, object> Columns;
 
         public ObjectPool() 
         {
-            this.engines = new List<ObjectEngine>();
+			this.ObjectProperties = new HashSet<string>();
+            this.Objects = new List<ObjectEngine>();
         }
+
+		public ObjectPool(string[] properties)
+		{
+			this.ObjectProperties = new HashSet<string>();
+			this.Objects = new List<ObjectEngine>();
+
+			foreach (var prop in properties) {
+				this.ObjectProperties.Add( prop );
+			}
+		}
 
         public void AddObject( ObjectEngine eng ) 
         {
-            this.engines.Add( eng );        
+            this.Objects.Add( eng );        
         }
 
         public void RemoveObject( ObjectEngine eng ) 
         {
-            this.engines.Remove( eng );        
+            this.Objects.Remove( eng );        
         }
 
         public List<ObjectEngine> GetObjects() 
         {
-            return engines;
+            return Objects;
         }
         
         public bool Contains(string objectName)
         {
-            return engines.Any( obj => obj.Hex.Name==objectName );
+            return Objects.Any( obj => obj.Hex.Name==objectName );
         }
 
         public int Count()
         {
-            return engines.Count;
+            return Objects.Count;
         }
     }
 }
