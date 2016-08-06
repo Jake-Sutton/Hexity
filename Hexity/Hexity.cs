@@ -11,7 +11,6 @@ namespace HexityStartUp
 {
     class App_Start
     {
-
         static void Main(string[] args) 
         {
             Console.WriteLine(AppData.StartUpString, AppData.Year, AppData.Name, AppData.Version, AppData.Author);
@@ -31,7 +30,6 @@ namespace HexityStartUp
     {
         public bool Initialize() 
         {
-			Manager.Responding = true;
             Manager.State = new Dictionary<string, ObjectPool>();
 			Manager.CurrentPool = AppData.DefaultPoolName;
 
@@ -47,20 +45,26 @@ namespace HexityStartUp
 			
 			q.ToList().ForEach(m => Manager.HexCommands.Add( m.Name ));
 
-            return Manager.Responding;
+			return true;
         }
 
         public int Start() 
         {
-            while ( Manager.Responding ) 
+			// Full credit to Miguel de Icaza (miguel@novell.com), authored 2008
+			// This file is dual-licensed under the terms of the MIT X11 license or the
+			// Apache License 2.0
+			// You may obtain a copy of the License at
+			// http://www.apache.org/licenses/LICENSE-2.0
+			var lineEditor = new Mono.Terminal.LineEditor(AppData.Name);
+			string s;
+
+			while ( (s = lineEditor.Edit(AppData.Prompt, "")) != "q" ) 
             {
-                Console.Write( AppData.Prompt );
+				var splitInput = s.Trim().Split(' ');
 
-                var input = Console.ReadLine().Trim().Split(' ');
+				var action = splitInput[0];
 
-                string action = input[0];
-
-				RunAction(action, input);
+				RunAction(action, splitInput);
             }
 
             return 0;
@@ -69,14 +73,14 @@ namespace HexityStartUp
 		static void RunAction(string action, string[] arguments)
 		{
 			// Creates a TextInfo based on the "en-US" culture.
-			TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+			var textInfo = new CultureInfo("en-US", false).TextInfo;
 
 			action = textInfo.ToTitleCase(action);
 
 			if (Manager.HexCommands.Contains(action))
 			{
-				Type type = Type.GetType( AppData.CommandNamespace + "." + action, true );
-				var newInstance = (HexCommands.IRunnable)Activator.CreateInstance(type);
+				var type = Type.GetType( AppData.CommandNamespace + "." + action, true );
+				var newInstance = (IRunnable) Activator.CreateInstance(type);
 
 				newInstance.Run(arguments);
 			}
@@ -84,7 +88,6 @@ namespace HexityStartUp
 			{
 				Console.WriteLine( AppData.ErrInvalidCommand, action, "TODO" );
 			}
-
 		}
     }
 }

@@ -6,7 +6,6 @@ using Hexity.Engines;
 
 namespace HexCommands
 {
-
     interface IRunnable
     {
     	bool Run(string[] parameters);
@@ -16,7 +15,6 @@ namespace HexCommands
 	public static class Manager 
 	{
 		public static HashSet<string> HexCommands = new HashSet<string>();
-		public static bool Responding;
 		public static string CurrentPool;
 		public static Dictionary<string, ObjectPool> State;
 	}
@@ -277,21 +275,6 @@ namespace HexCommands
 					}
 				}
 			}
-
-			return true;
-		}
-	}
-
-	class Q : IRunnable
-	{
-		public string Help()
-		{
-			throw new NotImplementedException();
-		}
-
-		public bool Run(string[] parameters)
-		{
-			Manager.Responding = false;
 
 			return true;
 		}
