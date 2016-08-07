@@ -39,19 +39,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\Hex.cs" />
-    <Compile Include="src\HexConsole.cs" />
-    <Compile Include="src\HexityStrings.cs" />
-    <Compile Include="src\ObjectEngine.cs" />
-    <Compile Include="Hexity.cs" />
-    <Compile Include="src\getline.cs" />
+    <Compile Include="Source\Console\getline.cs" />
+    <Compile Include="Source\Console\HexConsole.cs" />
+    <Compile Include="Source\Console\HexityStrings.cs" />
+    <Compile Include="Source\Console\Hexity.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="src\" />
-    <Folder Include="res\" />
+    <Folder Include="Source\" />
+    <Folder Include="Source\Console\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{72F6CBDA-5977-4D85-9873-80096C5ADBAE}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

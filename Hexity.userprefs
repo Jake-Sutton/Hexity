@@ -1,11 +1,11 @@
 ﻿<Properties StartupItem="Hexity/Hexity.csproj">
   <MonoDevelop.Ide.ItemProperties.Hexity PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Hexity/src/HexConsole.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Hexity/src/HexityStrings.cs">
     <Files>
-      <File FileName="Hexity/src/HexConsole.cs" Line="67" Column="5" />
-      <File FileName="Hexity/src/ObjectEngine.cs" Line="29" Column="4" />
-      <File FileName="Hexity/Hexity.cs" Line="41" Column="50" />
-      <File FileName="Hexity/src/HexityStrings.cs" Line="18" Column="89" />
+      <File FileName="Hexity/src/HexConsole.cs" Line="14" Column="6" />
+      <File FileName="Hexity/src/ObjectEngine.cs" Line="63" Column="1" />
+      <File FileName="Hexity/Hexity.cs" Line="75" Column="1" />
+      <File FileName="Hexity/src/HexityStrings.cs" Line="22" Column="27" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -14,7 +14,7 @@
             <Node name="Core" expanded="True" />
             <Node name="Hexity" expanded="True">
               <Node name="src" expanded="True">
-                <Node name="HexConsole.cs" selected="True" />
+                <Node name="HexityStrings.cs" selected="True" />
               </Node>
             </Node>
           </Node>

@@ -3,8 +3,7 @@ namespace Hexity.Strings
 
     public static class AppData 
     {
-
-        public const string StartUpString = "As of {0}, {1} {2} by {3} is issued publicly under the MIT License.";
+        public const string StartUpString = "{1} {2} by {3}.\nThis software issued publicly under the MIT License.";
 
         public const string Name = "Hexity";
         public const string Version = "0.0.1";
@@ -13,6 +12,10 @@ namespace Hexity.Strings
 
 
 		public const string DefaultPoolName = "Hexity";
+		public const string CommandNamespace = "HexCommands";
+
+		public const string ErrInvalidCommand = "'{0}' is not a command. Did you mean '{1}'?";
+
 
 
 		public const int Year = 2016;

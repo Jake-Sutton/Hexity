@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hexity", "Hexity\Hexity.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{72F6CBDA-5977-4D85-9873-80096C5ADBAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexityTester", "HexityTester\HexityTester.csproj", "{61AD926E-AB7D-4706-89CC-CE41E4BAF25D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -19,5 +21,9 @@ Global
 		{72F6CBDA-5977-4D85-9873-80096C5ADBAE}.Debug|x86.Build.0 = Debug|Any CPU
 		{72F6CBDA-5977-4D85-9873-80096C5ADBAE}.Release|x86.ActiveCfg = Release|Any CPU
 		{72F6CBDA-5977-4D85-9873-80096C5ADBAE}.Release|x86.Build.0 = Release|Any CPU
+		{61AD926E-AB7D-4706-89CC-CE41E4BAF25D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{61AD926E-AB7D-4706-89CC-CE41E4BAF25D}.Debug|x86.Build.0 = Debug|Any CPU
+		{61AD926E-AB7D-4706-89CC-CE41E4BAF25D}.Release|x86.ActiveCfg = Release|Any CPU
+		{61AD926E-AB7D-4706-89CC-CE41E4BAF25D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
