@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Hexity.Engines;
+using Hexity.Strings;
 
 namespace HexCommands
 {
@@ -23,7 +24,35 @@ namespace HexCommands
 	{
 		public string Help()
 		{
-			throw new NotImplementedException();
+			return
+@"NAME:
+
+    'create' - creates an object pool.
+
+DESCRIPTION:
+
+    'create' - creates an object pool. 
+    As of now there are no options this
+    method takes.
+
+EXAMPLE: 
+  
+    ~~~> pools 
+    * Currently_Active_Pool_Name
+    Another_Pool
+
+    ~~~> add One_More
+
+    ~~~> pools 
+    * Currently_Active_Pool_Name
+    Another_Pool
+    One_More
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:
+";
 		}
 
 		bool IRunnable.Run(string[] parameters)
@@ -80,7 +109,34 @@ namespace HexCommands
 	{
 		public string Help()
 		{
-			throw new NotImplementedException();
+			return
+@"NAME:
+
+    'delete' - deletes an object pool.
+
+DESCRIPTION:
+
+    'delete' - deletes an object pool. As of now 
+    there are no options this method takes.
+
+EXAMPLE: 
+
+    ~~~> pools 
+    * Currently_Active_Pool_Name
+    Another_Pool
+    One_More
+
+    ~~~> delete One_More
+
+    ~~~> pools 
+    * Currently_Active_Pool_Name
+    Another_Pool
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:
+";
 		}
 
 		public bool Run(string[] parameters)
@@ -117,7 +173,36 @@ namespace HexCommands
 	{
 		public string Help()
 		{
-			throw new NotImplementedException();
+			return
+@"NAME:
+
+    'add' - adds a member object whose name active
+    object pool.
+
+DESCRIPTION:
+
+    'add' - adds a member object whose name active
+    object pool. As of now there are no options
+    this method takes.
+
+EXAMPLE: 
+
+    ~~~> list 
+    Currently_Active_Pool_Name
+    * A_Pool_Member
+
+    ~~~> add One_More
+
+    ~~~> list 
+    Currently_Active_Pool_Name
+    * A_Pool_Member
+    * One_More
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:
+";
 		}
 
 		public bool Run(string[] parameters)
@@ -173,7 +258,38 @@ namespace HexCommands
 	{
 		public string Help()
 		{
-			throw new NotImplementedException();
+			return
+@"NAME:
+
+    'remove' - removes a member of object whose name
+    is passed as the first argument from the currently 
+    active object pool.
+
+DESCRIPTION:
+
+    'remove' - removes a member of object whose name
+    is passed as the first argument from the currently 
+    active object pool. As of now there are no options
+    this method takes.
+
+EXAMPLE: 
+
+    ~~~> list 
+    Currently_Active_Pool_Name
+    * A_Pool_Member
+    * One_More
+
+    ~~~> remove One_More
+
+    ~~~> list 
+    Currently_Active_Pool_Name
+    * A_Pool_Member
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:
+";
 		}
 
 		public bool Run(string[] parameters)
@@ -202,7 +318,32 @@ namespace HexCommands
 	{
 		public string Help()
 		{
-			throw new NotImplementedException();
+			return
+@"NAME:
+
+    'list' - prints the name of the currently active
+    object pool and list of the its member object 
+    engines.
+
+DESCRIPTION:
+
+    'list' - prints the name of the currently active
+    object pool and list of the its member object 
+    engines. As of now there are no options this 
+    method takes.
+
+EXAMPLE: 
+
+    ~~~> list 
+    Currently_Active_Pool_Name
+    * A_Pool_Member
+    * One_More
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:
+";
 		}
 
 		public bool Run(string[] parameters)
@@ -221,7 +362,30 @@ namespace HexCommands
 	{
 		public string Help()
 		{
-			throw new NotImplementedException();
+			return
+@"NAME:
+
+    'pools' - prints a list of currently available
+    object pools.
+
+DESCRIPTION:
+
+    'pools' - prints a list of currently available
+    object pools. As of now there are no options 
+    this method takes.
+
+EXAMPLE: 
+
+    ~~~> pools 
+    * Currently_Active_Pool_Name
+    Another_Pool
+    One_More
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:
+";
 		}
 
 		public bool Run(string[] parameters)
@@ -241,7 +405,36 @@ namespace HexCommands
 	{
 		public string Help()
 		{
-			throw new NotImplementedException();
+			return
+@"NAME:
+
+    'open' - Makes the object pool named by its first 
+    argument active, meaning objects may be added and 
+    removed.
+
+DESCRIPTION:
+
+    'open' makes the object pool named by its first 
+    argument active, meaning objects may be added and 
+    removed. As of now there are no options this method
+    takes.
+
+EXAMPLE: 
+
+    ~~~> list 
+    Some_Pool
+    * Some_Pool_Member
+    
+    ~~~> open Hexity
+    
+    ~~~> list
+    Hexity
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:
+";
 		}
 
 		public bool Run(string[] parameters)
@@ -256,7 +449,40 @@ namespace HexCommands
 	{
 		public string Help()
 		{
-			throw new NotImplementedException();
+			return
+@"NAME:
+
+    'link' - when passed two object pools, seperated by 
+    '<->' returns the list of object engines common
+    to both pools.
+
+DESCRIPTION:
+
+    'link' - when passed two object pools, seperated by 
+    '<->' returns the list of object engines common
+    to both pools. As of now there are no options this 
+    method takes.
+
+EXAMPLE: 
+
+    ~~~> list 
+    Some_Pool
+    * Some_Pool_Member
+    
+    ~~~> open Hexity
+    
+    ~~~> list
+    Hexity
+    * Some_Pool_Member
+
+    ~~~> link Hexity <-> Some_Pool
+    Some_Pool_Member
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:
+";
 		}
 
 		public bool Run(string[] parameters)
@@ -275,6 +501,55 @@ namespace HexCommands
 					}
 				}
 			}
+
+			return true;
+		}
+	}
+
+	class Man : IRunnable
+	{
+		public string Help()
+		{
+			return
+@"NAME:
+
+    'man' - Prints a description of the command named by its 
+    first argument and how to properly use it.
+
+DESCRIPTION:
+
+    'man' prints a description of the command named by its 
+    first argument and how to properly use it. As of now
+    there are no options this method takes.
+
+EXAMPLE: 
+
+    ~~~> man create
+    Manual Page: 'create'
+    
+    Description of the function create with examples.
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:
+";
+
+		}
+
+		public bool Run(string[] parameters)
+		{
+			string action = parameters[1];
+
+			// Creates a TextInfo based on the "en-US" culture.
+			var textInfo = new CultureInfo("en-US", false).TextInfo;
+
+			action = textInfo.ToTitleCase(action);
+
+			var type = Type.GetType(AppData.CommandNamespace + "." + action, true);
+			var newInstance = (IRunnable) Activator.CreateInstance(type);
+
+			Console.WriteLine(newInstance.Help());
 
 			return true;
 		}
