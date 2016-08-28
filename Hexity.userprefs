@@ -4,7 +4,7 @@
     <Files>
       <File FileName="HexityTester/Test.cs" Line="15" Column="55" />
       <File FileName="Core/Source/Objects/ObjectEngine.cs" Line="14" Column="3" />
-      <File FileName="Hexity/Source/Console/HexConsole.cs" Line="257" Column="1" />
+      <File FileName="Hexity/Source/Console/HexConsole.cs" Line="666" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
