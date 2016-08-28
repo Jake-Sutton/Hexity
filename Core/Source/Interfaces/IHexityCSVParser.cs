@@ -5,7 +5,7 @@ namespace Core
 {
 	public interface IHexityCSVParser
 	{
-		ObjectPool ReadCSVForObjectPool(string fileName, string[] columnsToRead);
+		ObjectPool ReadCSVForObjectPool( string fileName, string[] columnsToRead );
 	}
 }
 

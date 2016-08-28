@@ -6,3 +6,4 @@
 /Users/jakesutton/Desktop/Hexity/HexityTester/bin/Debug/nunit.framework.dll
 /Users/jakesutton/Desktop/Hexity/HexityTester/bin/Debug/Core.dll
 /Users/jakesutton/Desktop/Hexity/HexityTester/bin/Debug/Core.dll.mdb
+/Users/jakesutton/Desktop/Hexity/HexityTester/bin/Debug/CsvHelper.dll

@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
-using System;
 using Core;
+using Hexity.Engines;
 
 namespace HexityTester
 {
@@ -12,9 +12,16 @@ namespace HexityTester
 		{
 			IHexityCSVParser parse = new HexityCSVParser();
 
-			parse.ReadCSVForObjectPool("test", new string[]{"test"});
+			ObjectPool eng = parse.ReadCSVForObjectPool("/Users/jakesutton/Desktop/Temp.csv",
+			                                             new string[]{"Name", "Type"});
 
-			Assert.Fail();
+			Assert.True(eng.HasProperty("Name"));
+			Assert.True(eng.HasProperty("Type"));
+
+			Assert.False(eng.HasProperty("Company"));
+
+			Assert.True(eng.GetObjects().Count == 9);
+			Assert.True(eng.Contains("Cardinal Slant-D® Ring Binder, Heavy Gauge Vinyl"));
 		}
 	}
 }

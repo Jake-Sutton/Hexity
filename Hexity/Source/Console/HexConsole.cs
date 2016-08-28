@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using Core;
 using Hexity.Engines;
 using Hexity.Strings;
 
@@ -15,6 +17,8 @@ namespace HexCommands
 
 	public static class Manager 
 	{
+
+		public static string WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 		public static HashSet<string> HexCommands = new HashSet<string>();
 		public static string CurrentPool;
 		public static Dictionary<string, ObjectPool> State;
@@ -547,9 +551,120 @@ SEE ALSO:
 			action = textInfo.ToTitleCase(action);
 
 			var type = Type.GetType(AppData.CommandNamespace + "." + action, true);
-			var newInstance = (IRunnable) Activator.CreateInstance(type);
+			var newInstance = (IRunnable)Activator.CreateInstance(type);
 
 			Console.WriteLine(newInstance.Help());
+
+			return true;
+		}
+	}
+
+	class Pwd : IRunnable
+	{
+		public string Help()
+		{
+			return
+@"NAME:
+
+    'pwd' - Prints the current working directory.
+
+DESCRIPTION:
+
+    'pwd' Prints the current working directory. From
+    here, all files will be loaded and saved.
+    As of now there are no options this method takes.
+
+EXAMPLE: 
+
+    ~~~> pwd
+    /Users/user/Desktop
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:
+";
+
+		}
+
+		public bool Run(string[] parameters)
+		{
+			Console.WriteLine( Manager.WorkingDirectory );
+
+			return true;
+		}
+	}
+
+	class Read : IRunnable
+	{
+		public string Help()
+		{
+			return
+@"NAME:
+
+    'read' - loads a file into an object pool.
+
+DESCRIPTION:
+
+    'read' loads a file into an object pool.
+    As of now there are no options this method takes.
+
+EXAMPLE: 
+
+    ~~~> read cats.csv Cats
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:
+";
+
+		}
+
+		public bool Run(string[] parameters)
+		{
+			string fileName = parameters[1];
+
+			string poolName = parameters[2];
+
+			int parameterStart = -1;
+			int parameterEnd = -1;
+			for (int i = 0; i < parameters.Length; ++i)
+			{
+				if (parameters[i].Contains("{"))
+				{
+					parameterStart = i;
+					break;
+				}
+			}
+
+			for (int i = parameterStart - 1; i < parameters.Length; ++i)
+			{
+				if (parameters[i].Contains("}"))
+				{
+					parameterEnd = i;
+					break;
+				}
+			}
+
+			string[] data = parameters.Skip(parameterStart).Take(parameterEnd - (parameterStart - 1)).ToArray();
+
+			string final = string.Join("", data);
+
+			final = final.TrimStart('{').TrimEnd('}');
+
+			TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+
+			data = final.Split(',').Select(n => textInfo.ToTitleCase(n)).ToArray();
+
+			IHexityCSVParser parser = new HexityCSVParser();
+
+			string fullPath = Path.Combine(Manager.WorkingDirectory, fileName);
+
+			ObjectPool objectPool = parser.ReadCSVForObjectPool(fullPath, data);
+
+			Manager.State.Add(poolName, objectPool);
+			Manager.CurrentPool = poolName;
 
 			return true;
 		}
