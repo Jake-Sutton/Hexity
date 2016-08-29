@@ -1,0 +1,32 @@
+﻿NAME:
+
+    'link' - when passed two object pools, seperated by 
+    '<->' returns the list of object engines common
+    to both pools.
+
+DESCRIPTION:
+
+    'link' - when passed two object pools, seperated by 
+    '<->' returns the list of object engines common
+    to both pools. As of now there are no options this 
+    method takes.
+
+EXAMPLE: 
+
+    ~~~> list 
+    Some_Pool
+    * Some_Pool_Member
+    
+    ~~~> open Hexity
+    
+    ~~~> list
+    Hexity
+    * Some_Pool_Member
+
+    ~~~> link Hexity <-> Some_Pool
+    Some_Pool_Member
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:

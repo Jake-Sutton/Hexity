@@ -1,0 +1,24 @@
+﻿NAME:
+
+    'list' - prints the name of the currently active
+    object pool and list of the its member object 
+    engines.
+
+DESCRIPTION:
+
+    'list' - prints the name of the currently active
+    object pool and list of the its member object 
+    engines. As of now there are no options this 
+    method takes.
+
+EXAMPLE: 
+
+    ~~~> list 
+    Currently_Active_Pool_Name
+    * A_Pool_Member
+    * One_More
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:

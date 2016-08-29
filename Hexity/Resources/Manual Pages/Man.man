@@ -1,0 +1,22 @@
+﻿NAME:
+
+    'man' - Prints a description of the command named by its 
+    first argument and how to properly use it.
+
+DESCRIPTION:
+
+    'man' prints a description of the command named by its 
+    first argument and how to properly use it. As of now
+    there are no options this method takes.
+
+EXAMPLE: 
+
+    ~~~> man create
+    Manual Page: 'create'
+    
+    Description of the function create with examples.
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:

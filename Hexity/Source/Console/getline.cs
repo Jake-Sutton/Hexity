@@ -28,7 +28,6 @@ using System;
 using System.Text;
 using System.IO;
 using System.Threading;
-using System.Reflection;
 
 namespace Mono.Terminal {
 
@@ -884,7 +883,7 @@ namespace Mono.Terminal {
 		// history are recorded
 		//
 		class History {
-			string [] history;
+			readonly string [] history;
 			int head, tail;
 			int cursor, count;
 			string histfile;

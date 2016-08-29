@@ -16,8 +16,6 @@ namespace Hexity.Strings
 
 		public const string ErrInvalidCommand = "'{0}' is not a command. Did you mean '{1}'?";
 
-
-
 		public const int Year = 2016;
     }
 }

@@ -1,0 +1,28 @@
+﻿NAME:
+
+    'open' - Makes the object pool named by its first 
+    argument active, meaning objects may be added and 
+    removed.
+
+DESCRIPTION:
+
+    'open' makes the object pool named by its first 
+    argument active, meaning objects may be added and 
+    removed. As of now there are no options this method
+    takes.
+
+EXAMPLE: 
+
+    ~~~> list 
+    Some_Pool
+    * Some_Pool_Member
+    
+    ~~~> open Hexity
+    
+    ~~~> list
+    Hexity
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:

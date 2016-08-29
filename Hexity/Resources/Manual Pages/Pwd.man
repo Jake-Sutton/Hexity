@@ -1,0 +1,19 @@
+﻿NAME:
+
+    'pwd' - Prints the current working directory.
+
+DESCRIPTION:
+
+    'pwd' Prints the current working directory. From
+    here, all files will be loaded and saved.
+    As of now there are no options this method takes.
+
+EXAMPLE: 
+
+    ~~~> pwd
+    /Users/user/Desktop
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:

@@ -52,9 +52,22 @@
   <ItemGroup>
     <Folder Include="Source\" />
     <Folder Include="Source\Console\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Resources\Manual Pages\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Resources\Manual Pages\Create.man" />
+    <None Include="Resources\Manual Pages\Delete.man" />
+    <None Include="Resources\Manual Pages\Add.man" />
+    <None Include="Resources\Manual Pages\Remove.man" />
+    <None Include="Resources\Manual Pages\List.man" />
+    <None Include="Resources\Manual Pages\Pools.man" />
+    <None Include="Resources\Manual Pages\Open.man" />
+    <None Include="Resources\Manual Pages\Link.man" />
+    <None Include="Resources\Manual Pages\Man.man" />
+    <None Include="Resources\Manual Pages\Pwd.man" />
+    <None Include="Resources\Manual Pages\Read.man" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
