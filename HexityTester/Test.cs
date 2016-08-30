@@ -60,6 +60,24 @@ namespace HexityTester
 			Assert.True(set4.Flags.Count == 0);
 			Assert.True(set4.NamedMembers.Count == 0);
 		}
+
+		[Test]
+		public void ArgParserTestThree()
+		{
+			var set1 = new ArgumentSet("jake another");
+			Assert.False(set1.HasFlags);
+			Assert.False(set1.HasNamedMembers);
+			Assert.True(set1.HasPools);
+			Assert.True(set1.Pools.Contains("Jake"));
+			Assert.True(set1.Pools.Contains("Another"));
+
+
+			var set2 = new ArgumentSet("jake -tv -f {name, address}");
+			Assert.True(set2.HasFlags);
+			Assert.True(set2.HasNamedMembers);
+			Assert.True(set2.HasPools);
+			Assert.True(set2.Pools.Contains("Jake"));
+		}
 	}
 }
 

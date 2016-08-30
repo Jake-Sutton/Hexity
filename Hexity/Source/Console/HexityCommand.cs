@@ -8,7 +8,7 @@ namespace HexCommands
 {
 	interface IRunnable
 	{
-		bool Run(string[] parameters);
+		bool Run(ArgumentSet arguments);
 		string Help();
 		string CacheManualPage();
 	}
@@ -18,7 +18,7 @@ namespace HexCommands
 
 		string ManPage;
 
-		public abstract bool Run(string[] parameters);
+		public abstract bool Run(ArgumentSet arguments);
 
 		public string Help()
 		{
@@ -35,13 +35,11 @@ namespace HexCommands
 			string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"../../Resources/Manual Pages/",
 									   GetType().Name + ".man");
 
-			// This text is added only once to the file.
 			if (!File.Exists(path))
 			{
 				throw new FileNotFoundException();
 			}
 
-			// Open the file to read from.
 			return File.ReadAllText(path);
 		}
 	}
@@ -72,12 +70,32 @@ namespace HexCommands
 			private set;
 		}
 
+		public bool HasPools
+		{
+			get;
+			private set;
+		}
+
+		public List<string> PoolList
+		{
+			get;
+			private set;
+		}
+
+		public HashSet<string> Pools
+		{
+			get;
+			private set;
+		}
+
 		public ArgumentSet(string trailingData)
 		{
 			TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
 
 			Flags = new HashSet<char>();
 			NamedMembers = new HashSet<string>();
+			PoolList = new List<string>();
+			Pools = new HashSet<string>();
 
 			HasFlags = false;
 			HasNamedMembers = false;
@@ -96,6 +114,9 @@ namespace HexCommands
 				if (memberData.Trim().Length == 0) 
 				{
 					HasNamedMembers = false;
+					 
+					trailingData = trailingData.Substring(0, firstInstanceoOfCurly); // need to refactor so this only
+					// occurs once
 				} 
 				else 
 				{
@@ -117,7 +138,9 @@ namespace HexCommands
 
 				HasFlags = true;
 
-				string[] flagSets = trailingData.Split(' ').Select(n => textInfo.ToUpper(n.TrimStart('-'))).ToArray();
+				string flagData = trailingData.Substring(firstInstanceoOfHyphen);
+
+				string[] flagSets = flagData.Split(' ').Select(n => textInfo.ToUpper(n.TrimStart('-'))).ToArray();
 
 				foreach (string flagSet in flagSets)
 				{
@@ -125,8 +148,22 @@ namespace HexCommands
 						Flags.Add( flag );
 					}
 				}
+
+				trailingData = trailingData.Substring(0, firstInstanceoOfHyphen);
+			}
+
+			if (trailingData.Length > 0)
+			{
+				HasPools = true;
+
+				string[] pools = trailingData.Trim().Split(' ').Select(n => textInfo.ToTitleCase(n)).ToArray();
+
+				foreach (string pool in pools)
+				{
+					Pools.Add( pool );
+					PoolList.Add( pool );
+				}
 			}
 		}
-
 	}
 }

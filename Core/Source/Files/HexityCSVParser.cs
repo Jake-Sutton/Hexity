@@ -12,12 +12,12 @@ namespace Core
 		{
 			TextReader textReader = File.OpenText( fileName );
 
-			List<ObjectEngine> entries = new List<ObjectEngine>();
+			var entries = new List<ObjectEngine>();
 
 			var csv = new CsvReader( textReader );
 			while ( csv.Read() )
 			{
-				Dictionary<string, object> tempData = new Dictionary<string, object>();
+				var tempData = new Dictionary<string, object>();
 
 				Array.ForEach( columnsToRead, m =>  tempData.Add(m, csv.GetField<string>(m) ) );
 
@@ -26,7 +26,7 @@ namespace Core
 				entries.Add( nextEntry );
 			}
 
-			ObjectPool result = new ObjectPool(columnsToRead, entries);
+			var result = new ObjectPool(columnsToRead, entries);
 
 			return result;
 		}

@@ -1,11 +1,11 @@
 ﻿<Properties StartupConfiguration="{AA58B3FC-9FB5-4567-A00F-AC12B5EB6E39}|Default">
   <MonoDevelop.Ide.ItemProperties.Hexity PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="HexityTester/Test.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Core/Source/Files/HexityCSVParser.cs">
     <Files>
-      <File FileName="Hexity/Source/Console/HexConsole.cs" Line="55" Column="76" />
-      <File FileName="Hexity/Source/Console/HexityCommand.cs" Line="49" Column="9" />
-      <File FileName="Core/Source/Files/HexityCSVParser.cs" Line="13" Column="54" />
-      <File FileName="HexityTester/Test.cs" Line="22" Column="4" />
+      <File FileName="Hexity/Source/Console/HexConsole.cs" Line="25" Column="5" />
+      <File FileName="Hexity/Source/Console/HexityCommand.cs" Line="164" Column="24" />
+      <File FileName="Core/Source/Files/HexityCSVParser.cs" Line="19" Column="5" />
+      <File FileName="Hexity/Source/Console/Hexity.cs" Line="89" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />

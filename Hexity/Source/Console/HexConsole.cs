@@ -19,42 +19,11 @@ namespace HexCommands
 
 	class Create : HexityCommand
 	{
-		public override bool Run(string[] parameters)
+		public override bool Run(ArgumentSet arguments)
 		{
-			if (parameters.Length > 2)
+			if (arguments.HasPools)
 			{
-
-				int parameterStart = -1;
-				int parameterEnd = -1;
-				for (int i = 0; i < parameters.Length; ++i)
-				{
-					if (parameters[i].Contains("{"))
-					{
-						parameterStart = i;
-						break;
-					}
-				}
-
-				for (int i = parameterStart - 1; i < parameters.Length; ++i)
-				{
-					if (parameters[i].Contains("}"))
-					{
-						parameterEnd = i;
-						break;
-					}
-				}
-
-				string[] data = parameters.Skip(parameterStart).Take(parameterEnd - (parameterStart - 1)).ToArray();
-
-				string final = string.Join("", data);
-
-				final = final.TrimStart('{').TrimEnd('}');
-
-				TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-
-				data = final.Split(',').Select(n => textInfo.ToTitleCase(n)).ToArray();
-
-				CreateWithProperties(parameters[1], data);
+				CreateWithProperties(arguments.Pools.First(), arguments.NamedMembers.ToArray());
 			}
 
 			return true;
@@ -71,9 +40,16 @@ namespace HexCommands
 
 	class Delete : HexityCommand
 	{
-		public override bool Run(string[] parameters)
+		public override bool Run(ArgumentSet arguments)
 		{
-			string toDelete = parameters[1];
+			if (!arguments.HasPools)
+			{
+				Console.WriteLine("Failed to specify which pools should be deleted.");
+
+				return false;
+			}
+
+			string toDelete = arguments.Pools.First();
 
 			if (toDelete == Manager.CurrentPool)
 			{
@@ -103,42 +79,11 @@ namespace HexCommands
 
 	class Add : HexityCommand
 	{
-		public override bool Run(string[] parameters)
+		public override bool Run(ArgumentSet arguments)
 		{
-			if (parameters.Length > 2)
+			if (arguments.HasPools)
 			{
-
-				int parameterStart = -1;
-				int parameterEnd = -1;
-				for (int i = 0; i < parameters.Length; ++i)
-				{
-					if (parameters[i].Contains("{"))
-					{
-						parameterStart = i;
-						break;
-					}
-				}
-
-				for (int i = parameterStart - 1; i < parameters.Length; ++i)
-				{
-					if (parameters[i].Contains("}"))
-					{
-						parameterEnd = i;
-						break;
-					}
-				}
-
-				string[] data = parameters.Skip(parameterStart).Take(parameterEnd - (parameterStart - 1)).ToArray();
-
-				string final = string.Join("", data);
-
-				final = final.TrimStart('{').TrimEnd('}');
-
-				TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-
-				data = final.Split(',').Select(n => textInfo.ToTitleCase(n)).ToArray();
-
-				CreateWithProperties(parameters[1], data);
+				CreateWithProperties(arguments.Pools.First(), arguments.NamedMembers.ToArray());
 			}
 
 			return true;
@@ -154,9 +99,9 @@ namespace HexCommands
 
 	class Remove : HexityCommand
 	{
-		public override bool Run(string[] parameters)
+		public override bool Run(ArgumentSet arguments)
 		{
-			string toRemove = parameters[1];
+			string toRemove = arguments.Pools.First();
 
 			var engTemp = new List<ObjectEngine>();
 			foreach (var item in Manager.State[Manager.CurrentPool].GetObjects())
@@ -178,7 +123,7 @@ namespace HexCommands
 
 	class List : HexityCommand
 	{
-		public override bool Run(string[] parameters)
+		public override bool Run(ArgumentSet arguments)
 		{
 			Console.WriteLine(Manager.CurrentPool);
 			foreach (var item in Manager.State[Manager.CurrentPool].GetObjects())
@@ -192,7 +137,7 @@ namespace HexCommands
 
 	class Pools : HexityCommand
 	{
-		public override bool Run(string[] parameters)
+		public override bool Run(ArgumentSet arguments)
 		{
 			Console.WriteLine("* " + Manager.CurrentPool);
 			foreach (var item in Manager.State.Keys)
@@ -207,9 +152,9 @@ namespace HexCommands
 
 	class Open : HexityCommand
 	{
-		public override bool Run(string[] parameters)
+		public override bool Run(ArgumentSet arguments)
 		{
-			Manager.CurrentPool = parameters[1];
+			Manager.CurrentPool = arguments.Pools.First();
 
 			return true;
 		}
@@ -217,14 +162,13 @@ namespace HexCommands
 
 	class Link : HexityCommand
 	{
-		public override bool Run(string[] parameters)
+		public override bool Run(ArgumentSet arguments)
 		{
-			string first = parameters[1];
-			string second = parameters[3];
-			string linkType = parameters[2];
-
-			if (linkType.Equals("<->"))
+			if (arguments.Pools.Count == 2) // TODO refactor this so you can see shared items in n pools TODO
 			{
+				string first = arguments.PoolList[0];
+				string second = arguments.PoolList[1];
+
 				foreach (var item in Manager.State[first].GetObjects())
 				{
 					if (Manager.State[second].Contains(item.Hex.Name))
@@ -240,9 +184,9 @@ namespace HexCommands
 
 	class Man : HexityCommand
 	{
-		public override bool Run(string[] parameters)
+		public override bool Run(ArgumentSet arguments)
 		{
-			string action = parameters[1];
+			string action = arguments.Pools.First();
 
 			// Creates a TextInfo based on the "en-US" culture.
 			var textInfo = new CultureInfo("en-US", false).TextInfo;
@@ -260,7 +204,7 @@ namespace HexCommands
 
 	class Pwd : HexityCommand
 	{
-		public override bool Run(string[] parameters)
+		public override bool Run(ArgumentSet arguments)
 		{
 			Console.WriteLine( Manager.WorkingDirectory );
 
@@ -271,50 +215,23 @@ namespace HexCommands
 	class Read : HexityCommand
 	{
 
-		public override bool Run(string[] parameters)
+		public override bool Run(ArgumentSet arguments)
 		{
-			string fileName = parameters[1];
-
-			string poolName = parameters[2];
-
-			int parameterStart = -1;
-			int parameterEnd = -1;
-			for (int i = 0; i < parameters.Length; ++i)
+			if (arguments.Pools.Count  == 2)
 			{
-				if (parameters[i].Contains("{"))
-				{
-					parameterStart = i;
-					break;
-				}
+				string fileName = arguments.PoolList[0];
+
+				string poolName = arguments.PoolList[1];
+
+				IHexityCSVParser parser = new HexityCSVParser();
+
+				string fullPath = Path.Combine(Manager.WorkingDirectory, fileName);
+
+				ObjectPool objectPool = parser.ReadCSVForObjectPool(fullPath, arguments.NamedMembers.ToArray());
+
+				Manager.State.Add(poolName, objectPool);
+				Manager.CurrentPool = poolName;
 			}
-
-			for (int i = parameterStart - 1; i < parameters.Length; ++i)
-			{
-				if (parameters[i].Contains("}"))
-				{
-					parameterEnd = i;
-					break;
-				}
-			}
-
-			string[] data = parameters.Skip(parameterStart).Take(parameterEnd - (parameterStart - 1)).ToArray();
-
-			string final = string.Join("", data);
-
-			final = final.TrimStart('{').TrimEnd('}');
-
-			TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-
-			data = final.Split(',').Select(n => textInfo.ToTitleCase(n)).ToArray();
-
-			IHexityCSVParser parser = new HexityCSVParser();
-
-			string fullPath = Path.Combine(Manager.WorkingDirectory, fileName);
-
-			ObjectPool objectPool = parser.ReadCSVForObjectPool(fullPath, data);
-
-			Manager.State.Add(poolName, objectPool);
-			Manager.CurrentPool = poolName;
 
 			return true;
 		}
