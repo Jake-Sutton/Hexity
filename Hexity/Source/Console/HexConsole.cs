@@ -229,8 +229,20 @@ namespace HexCommands
 
 				ObjectPool objectPool = parser.ReadCSVForObjectPool(fullPath, arguments.NamedMembers.ToArray());
 
-				Manager.State.Add(poolName, objectPool);
-				Manager.CurrentPool = poolName;
+				// TODO this is probably not how this should work. Good fix for now.
+				if (!Manager.State.Keys.Contains(poolName)) {
+					
+					Manager.State.Add(poolName, objectPool);
+					Manager.CurrentPool = poolName;
+
+				} else {
+					
+					Manager.State.Remove(poolName);
+					Manager.State.Add(poolName, objectPool);
+					Manager.CurrentPool = poolName;
+				}
+
+
 			}
 
 			return true;
