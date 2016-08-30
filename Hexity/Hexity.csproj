@@ -48,6 +48,7 @@
     <Compile Include="Source\Console\HexConsole.cs" />
     <Compile Include="Source\Console\HexityStrings.cs" />
     <Compile Include="Source\Console\Hexity.cs" />
+    <Compile Include="Source\Console\HexityCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\" />

@@ -9,46 +9,6 @@ using Hexity.Strings;
 
 namespace HexCommands
 {
-    interface IRunnable
-    {
-    	bool Run(string[] parameters);
-		string Help();
-		string CacheManualPage();
-    }
-
-	abstract class HexityCommand : IRunnable
-	{
-
-		string ManPage;
-
-		public abstract bool Run(string[] parameters);
-
-		public string Help()
-		{
-			if (string.IsNullOrEmpty(ManPage))
-			{
-				ManPage = CacheManualPage();
-			}
-
-			return ManPage;
-		}
-
-		public string CacheManualPage()
-		{
-			string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"../../Resources/Manual Pages/",
-			                           GetType().Name + ".man");
-
-			// This text is added only once to the file.
-			if (!File.Exists(path))
-			{
-				throw new FileNotFoundException();
-			}
-
-			// Open the file to read from.
-			return File.ReadAllText(path);
-		}
-	}
-
 	public static class Manager 
 	{
 		public static string WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);

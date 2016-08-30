@@ -43,6 +43,10 @@
       <Project>{72F6CBDA-5977-4D85-9873-80096C5ADBAE}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Hexity\Hexity.csproj">
+      <Project>{AA58B3FC-9FB5-4567-A00F-AC12B5EB6E39}</Project>
+      <Name>Hexity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
