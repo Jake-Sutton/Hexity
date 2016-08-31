@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Core;
 using Hexity.Engines;
 using Hexity.Strings;
@@ -128,7 +129,21 @@ namespace HexCommands
 			Console.WriteLine(Manager.CurrentPool);
 			foreach (var item in Manager.State[Manager.CurrentPool].GetObjects())
 			{
-				Console.WriteLine("* " + item.Hex.Name);
+				// TODO design this in a way that is simpler and more readable for users
+				var otherItems = new StringBuilder("| ");
+
+				if (arguments.HasFlags && arguments.Flags.Contains('V')) 
+				{
+					foreach (var property in item.Properties) 
+					{
+						otherItems.Append(item.Values[property]+ ", ");
+					}
+						
+				}
+
+				otherItems.Length = otherItems.Length - 2;
+
+				Console.WriteLine("* " + item.Hex.Name + otherItems);
 			}
 
 			return true;

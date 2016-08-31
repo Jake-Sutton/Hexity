@@ -1,16 +1,19 @@
 ﻿<Properties StartupConfiguration="{AA58B3FC-9FB5-4567-A00F-AC12B5EB6E39}|Default">
   <MonoDevelop.Ide.ItemProperties.Hexity PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Core/Source/Files/HexityCSVParser.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Core/Source/Objects/ObjectEngine.cs">
     <Files>
-      <File FileName="Hexity/Source/Console/HexConsole.cs" Line="25" Column="5" />
+      <File FileName="Hexity/Source/Console/HexConsole.cs" Line="137" Column="40" />
       <File FileName="Hexity/Source/Console/HexityCommand.cs" Line="164" Column="24" />
-      <File FileName="Core/Source/Files/HexityCSVParser.cs" Line="19" Column="5" />
-      <File FileName="Hexity/Source/Console/Hexity.cs" Line="89" Column="1" />
+      <File FileName="Core/Source/Files/HexityCSVParser.cs" Line="22" Column="1" />
+      <File FileName="Hexity/Source/Console/Hexity.cs" Line="17" Column="4" />
+      <File FileName="Core/Source/Objects/ObjectEngine.cs" Line="13" Column="7" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/jakesutton/Desktop/Hexity/Hexity/Source/Console/HexConsole.cs" line="130" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

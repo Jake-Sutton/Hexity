@@ -8,8 +8,18 @@ namespace Hexity.Engines
     public class ObjectEngine 
     {
         public Hex Hex { get; set; }
-		HashSet<string> Properties;
-		Dictionary<string, object> Values;
+
+		public HashSet<string> Properties
+		{
+			get;
+			private set;
+		}
+
+		public Dictionary<string, object> Values
+		{
+			get;
+			private set;
+		}
 
 
 		public ObjectEngine() 
