@@ -1,0 +1,11 @@
+/Users/jakesutton/Desktop/Hexity/HexityTester/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/jakesutton/Desktop/Hexity/HexityTester/bin/Debug/HexityTester.dll.mdb
+/Users/jakesutton/Desktop/Hexity/HexityTester/bin/Debug/HexityTester.dll
+/Users/jakesutton/Desktop/Hexity/HexityTester/obj/Debug/HexityTester.dll
+/Users/jakesutton/Desktop/Hexity/HexityTester/obj/Debug/HexityTester.dll.mdb
+/Users/jakesutton/Desktop/Hexity/HexityTester/bin/Debug/nunit.framework.dll
+/Users/jakesutton/Desktop/Hexity/HexityTester/bin/Debug/Core.dll
+/Users/jakesutton/Desktop/Hexity/HexityTester/bin/Debug/Core.dll.mdb
+/Users/jakesutton/Desktop/Hexity/HexityTester/bin/Debug/CsvHelper.dll
+/Users/jakesutton/Desktop/Hexity/HexityTester/bin/Debug/Hexity.exe
+/Users/jakesutton/Desktop/Hexity/HexityTester/bin/Debug/Hexity.exe.mdb

@@ -1,0 +1,17 @@
+﻿NAME:
+
+    'read' - loads a file into an object pool.
+
+DESCRIPTION:
+
+    'read' loads a file into an object pool.
+    As of now there are no options this method takes.
+
+EXAMPLE: 
+
+    ~~~> read cats.csv Cats
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:

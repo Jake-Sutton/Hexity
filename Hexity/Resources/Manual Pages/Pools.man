@@ -1,0 +1,22 @@
+﻿NAME:
+
+    'pools' - prints a list of currently available
+    object pools.
+
+DESCRIPTION:
+
+    'pools' - prints a list of currently available
+    object pools. As of now there are no options 
+    this method takes.
+
+EXAMPLE: 
+
+    ~~~> pools 
+    * Currently_Active_Pool_Name
+    Another_Pool
+    One_More
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:

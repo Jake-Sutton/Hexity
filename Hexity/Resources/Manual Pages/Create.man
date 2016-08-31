@@ -1,0 +1,27 @@
+﻿NAME:
+
+    'create' - creates an object pool.
+
+DESCRIPTION:
+
+    'create' - creates an object pool. 
+    As of now there are no options this
+    method takes.
+
+EXAMPLE: 
+  
+    ~~~> pools 
+    * Currently_Active_Pool_Name
+    Another_Pool
+
+    ~~~> add One_More
+
+    ~~~> pools 
+    * Currently_Active_Pool_Name
+    Another_Pool
+    One_More
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:

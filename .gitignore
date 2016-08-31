@@ -1,7 +1,9 @@
 bin/
+obj/
 Hexity/obj/
 Core/obj/
 packages/
 *.exe
 *.dll
+*.dll.mdb
 .DS_Store

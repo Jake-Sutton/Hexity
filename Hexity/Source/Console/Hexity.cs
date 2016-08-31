@@ -60,17 +60,21 @@ namespace HexityStartUp
 
 			while ( (s = lineEditor.Edit(AppData.Prompt, "")) != "q" ) 
             {
-				var splitInput = s.Trim().Split(' ');
 
-				var action = splitInput[0];
+				int endOfCommand = s.IndexOf(' ');
+				endOfCommand = endOfCommand > -1 ? endOfCommand : s.Length;
 
-				RunAction(action, splitInput);
+				string trailingData = s.Substring(endOfCommand);
+
+				string action = s.Substring(0, endOfCommand);
+
+				RunAction(action, trailingData);
             }
 
             return 0;
         }
 
-		static void RunAction(string action, string[] arguments)
+		static void RunAction(string action, string trailingData)
 		{
 			// Creates a TextInfo based on the "en-US" culture.
 			var textInfo = new CultureInfo("en-US", false).TextInfo;
@@ -82,7 +86,9 @@ namespace HexityStartUp
 				var type = Type.GetType( AppData.CommandNamespace + "." + action, true );
 				var newInstance = (IRunnable) Activator.CreateInstance(type);
 
-				newInstance.Run(arguments);
+				var args = new ArgumentSet(trailingData);
+
+				newInstance.Run( args );
 			}
 			else 
 			{

@@ -1,0 +1,30 @@
+﻿NAME:
+
+    'remove' - removes a member of object whose name
+    is passed as the first argument from the currently 
+    active object pool.
+
+DESCRIPTION:
+
+    'remove' - removes a member of object whose name
+    is passed as the first argument from the currently 
+    active object pool. As of now there are no options
+    this method takes.
+
+EXAMPLE: 
+
+    ~~~> list 
+    Currently_Active_Pool_Name
+    * A_Pool_Member
+    * One_More
+
+    ~~~> remove One_More
+
+    ~~~> list 
+    Currently_Active_Pool_Name
+    * A_Pool_Member
+
+AUTHOR:
+    Jake Sutton, 2016.
+
+SEE ALSO:

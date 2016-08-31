@@ -8,8 +8,18 @@ namespace Hexity.Engines
     public class ObjectEngine 
     {
         public Hex Hex { get; set; }
-		HashSet<string> Properties;
-		Dictionary<string, object> Values;
+
+		public HashSet<string> Properties
+		{
+			get;
+			private set;
+		}
+
+		public Dictionary<string, object> Values
+		{
+			get;
+			private set;
+		}
 
 
 		public ObjectEngine() 
@@ -24,6 +34,16 @@ namespace Hexity.Engines
             this.Hex.Name = objectName;
 			this.Properties = new HashSet<string>();
         }
+
+		public ObjectEngine(string objectName, Dictionary<string, object> values)
+		{
+			this.Hex = new Hex();
+			this.Hex.Name = objectName;
+			this.Properties = new HashSet<string>(values.Keys);
+
+			this.Values = values;
+		}
+
 
 		public ObjectEngine(string objectName, string[] properties)
 		{
@@ -44,7 +64,6 @@ namespace Hexity.Engines
     {
 		List<ObjectEngine> Objects;
 		HashSet<string> MemberProperties;
-		//Dictionary<string, object> Columns;
 
         public ObjectPool() 
         {
@@ -60,6 +79,23 @@ namespace Hexity.Engines
 			foreach (var prop in properties) {
 				this.MemberProperties.Add( prop );
 			}
+		}
+
+		public ObjectPool(string[] properties, List<ObjectEngine> objects)
+		{
+			this.MemberProperties = new HashSet<string>();
+			this.Objects = new List<ObjectEngine>();
+
+			foreach (var prop in properties)
+			{
+				this.MemberProperties.Add(prop);
+			}
+
+			this.Objects = objects;
+		}
+
+		public bool HasProperty(string prop) {
+			return MemberProperties.Contains( prop );
 		}
 
         public void AddObject( ObjectEngine eng ) 
