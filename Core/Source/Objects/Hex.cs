@@ -1,11 +1,24 @@
-namespace Hexity.Models
-{
-    public class Hex 
-    {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string ImageURL { get; set; }
+using System.Collections.Generic;
 
-        public int Value { get; set; }
-    }
+namespace Hexity.Engines
+{
+	public class Hex : ObjectPool
+	{
+		public Hex()
+		{
+			MemberProperties = new HashSet<string>();
+		}
+
+		// implementation
+		public string DefaultDisplayName
+		{
+			get;
+			set;
+		}
+
+		public override string ToString()
+		{
+			return string.Format("{0}", DefaultDisplayName);
+		}
+	}
 }

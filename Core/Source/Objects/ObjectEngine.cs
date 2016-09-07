@@ -1,126 +1,83 @@
-using System;
 using System.Linq;
 using System.Collections.Generic;
-using Hexity.Models;
 
-namespace Hexity.Engines 
+namespace Hexity.Engines
 {
-    public class ObjectEngine 
-    {
-        public Hex Hex { get; set; }
-
-		public HashSet<string> Properties
+	public class ObjectPool
+	{
+		public Hex Hex
 		{
 			get;
 			private set;
 		}
 
-		public Dictionary<string, object> Values
+		public HashSet<string> MemberProperties;
+		public Dictionary<string, ObjectPool> Values;
+
+		public ObjectPool()
 		{
-			get;
-			private set;
+			MemberProperties = new HashSet<string>();
+			Values = new Dictionary<string, ObjectPool>();
 		}
 
-
-		public ObjectEngine() 
-        {
-            this.Hex = new Hex();
-			this.Properties = new HashSet<string>();
-        }
-
-        public ObjectEngine(string objectName) 
-        {
-            this.Hex = new Hex();
-            this.Hex.Name = objectName;
-			this.Properties = new HashSet<string>();
-        }
-
-		public ObjectEngine(string objectName, Dictionary<string, object> values)
+		public ObjectPool(string defaultDisplay) : this()
 		{
-			this.Hex = new Hex();
-			this.Hex.Name = objectName;
-			this.Properties = new HashSet<string>(values.Keys);
-
-			this.Values = values;
+			Hex = new Hex();
+			Hex.DefaultDisplayName = defaultDisplay;
 		}
 
-
-		public ObjectEngine(string objectName, string[] properties)
+		public ObjectPool(string defaultDisplay, Dictionary<string, ObjectPool> properties) : this(defaultDisplay)
 		{
-			this.Hex = new Hex();
-			this.Hex.Name = objectName;
-			this.Properties = new HashSet<string>();
-			this.Values = new Dictionary<string, object>();
+			Hex = new Hex();
+			Hex.DefaultDisplayName = defaultDisplay;
+
+			foreach (var prop in properties.Keys)
+			{
+				MemberProperties.Add(prop);
+			}
+
+			Values = properties;
+		}
+
+		public ObjectPool(string defaultDisplay, string[] properties) : this(defaultDisplay)
+		{
+			Hex = new Hex();
+			Hex.DefaultDisplayName = defaultDisplay;
 
 			foreach (var prop in properties)
 			{
-				this.Properties.Add(prop);
-				this.Values.Add(prop, null);
+				MemberProperties.Add(prop);
 			}
 		}
-    }
 
-    public class ObjectPool 
-    {
-		List<ObjectEngine> Objects;
-		HashSet<string> MemberProperties;
-
-        public ObjectPool() 
-        {
-			this.MemberProperties = new HashSet<string>();
-            this.Objects = new List<ObjectEngine>();
-        }
-
-		public ObjectPool(string[] properties)
+		public bool HasProperty(string prop)
 		{
-			this.MemberProperties = new HashSet<string>();
-			this.Objects = new List<ObjectEngine>();
-
-			foreach (var prop in properties) {
-				this.MemberProperties.Add( prop );
-			}
+			return MemberProperties.Contains(prop);
 		}
 
-		public ObjectPool(string[] properties, List<ObjectEngine> objects)
+		public void AddObject(string defaultDisplayName, ObjectPool eng)
 		{
-			this.MemberProperties = new HashSet<string>();
-			this.Objects = new List<ObjectEngine>();
-
-			foreach (var prop in properties)
-			{
-				this.MemberProperties.Add(prop);
-			}
-
-			this.Objects = objects;
+			Values.Add(defaultDisplayName, eng);
 		}
 
-		public bool HasProperty(string prop) {
-			return MemberProperties.Contains( prop );
+		public void RemoveObject(string defaultDisplayName)
+		{
+			Values.Remove(defaultDisplayName);
 		}
 
-        public void AddObject( ObjectEngine eng ) 
-        {
-            this.Objects.Add( eng );        
-        }
+		public List<ObjectPool> GetObjects()
+		{
+			return Values.Values.ToList();
+		}
 
-        public void RemoveObject( ObjectEngine eng ) 
-        {
-            this.Objects.Remove( eng );        
-        }
+		public bool Contains(string objectName)
+		{
+			return MemberProperties.Any(obj => obj.ToString() == objectName);
+		}
 
-        public List<ObjectEngine> GetObjects() 
-        {
-            return Objects;
-        }
-        
-        public bool Contains(string objectName)
-        {
-            return Objects.Any( obj => obj.Hex.Name==objectName );
-        }
-
-        public int Count()
-        {
-            return Objects.Count;
-        }
-    }
+		public int Count()
+		{
+			return Values.Count;
+		}
+	}
 }

@@ -22,9 +22,15 @@ namespace HexCommands
 	{
 		public override bool Run(ArgumentSet arguments)
 		{
-			if (arguments.HasPools)
+			string pool = arguments.Pools.First();
+
+			if (arguments.HasPools && pool != "Root")
 			{
-				CreateWithProperties(arguments.Pools.First(), arguments.NamedMembers.ToArray());
+				CreateWithProperties(pool, arguments.NamedMembers.ToArray());
+			}
+			else if (pool == "Root") 
+			{
+				Console.WriteLine("Invalid pool name, 'root' is a keyword. ");
 			}
 
 			return true;
@@ -32,8 +38,7 @@ namespace HexCommands
 
 		void CreateWithProperties( string name, string[] properties )
 		{
-			// where we can implement a setter for properties
-			var objectPool = new ObjectPool( properties );
+			var objectPool = new ObjectPool( name, properties );
 			Manager.State.Add(name, objectPool);
 			Manager.CurrentPool = name;
 		}
@@ -93,8 +98,8 @@ namespace HexCommands
 
 		void CreateWithProperties(string name, string[] properties)
 		{
-			var eng = new ObjectEngine(name, properties);
-			Manager.State[Manager.CurrentPool].AddObject(eng);
+			var eng = new ObjectPool(name, properties);
+			Manager.State[Manager.CurrentPool].AddObject(name, eng);
 		}
 	}
 
@@ -104,10 +109,10 @@ namespace HexCommands
 		{
 			string toRemove = arguments.Pools.First();
 
-			var engTemp = new List<ObjectEngine>();
+			var engTemp = new List<ObjectPool>();
 			foreach (var item in Manager.State[Manager.CurrentPool].GetObjects())
 			{
-				if (item.Hex.Name == toRemove)
+				if (item.Hex.DefaultDisplayName == toRemove)
 				{
 					engTemp.Add(item);
 				}
@@ -115,7 +120,7 @@ namespace HexCommands
 
 			foreach (var del in engTemp)
 			{
-				Manager.State[Manager.CurrentPool].RemoveObject(del);
+				Manager.State[Manager.CurrentPool].RemoveObject(del.Hex.DefaultDisplayName);
 			}
 
 			return true;
@@ -134,16 +139,16 @@ namespace HexCommands
 
 				if (arguments.HasFlags && arguments.Flags.Contains('V')) 
 				{
-					foreach (var property in item.Properties) 
+					foreach (var property in item.MemberProperties) 
 					{
-						otherItems.Append(item.Values[property]+ ", ");
+						otherItems.Append(property + ", ");
 					}
 						
 				}
 
 				otherItems.Length = otherItems.Length - 2;
 
-				Console.WriteLine("* " + item.Hex.Name + otherItems);
+				Console.WriteLine("* " + item.Hex.DefaultDisplayName + otherItems);
 			}
 
 			return true;
@@ -186,9 +191,9 @@ namespace HexCommands
 
 				foreach (var item in Manager.State[first].GetObjects())
 				{
-					if (Manager.State[second].Contains(item.Hex.Name))
+					if (Manager.State[second].Contains(item.Hex.DefaultDisplayName))
 					{
-						Console.WriteLine(item.Hex.Name);
+						Console.WriteLine(item.Hex.DefaultDisplayName);
 					}
 				}
 			}
